@@ -10,5 +10,5 @@ The [go-directory](https://github.com/go-directory) suite is comprised of the fo
     - Fork of [go-ldap/ldap](https://github.com/go-ldap/ldap)
   - [go-directory/config](https://github.com/go-directory/config); `cn=config` configuration abstraction for use by [go-directory/dsa](https://github.com/go-directory/dsa)
   - [go-directory/schema](https://github.com/go-directory/schema); complete schema definition store, parser
-  - [go-directory/syntax](https://github.com/go-directory/syntax); syntax checking and matching rule execution
+  - [go-directory/syntax](https://github.com/go-directory/syntax); syntax checking and matching rule assertions
   - [go-directory/common](https://github.com/go-directory/common); common elements -- error constants, helpers -- imported by any of the above
