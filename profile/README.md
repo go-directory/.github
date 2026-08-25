@@ -12,3 +12,19 @@ The [go-directory](https://github.com/go-directory) suite is comprised of the fo
   - [go-directory/schema](https://github.com/go-directory/schema); complete schema definition store, parser
   - [go-directory/syntax](https://github.com/go-directory/syntax); syntax checking and matching rule assertions
   - [go-directory/common](https://github.com/go-directory/common); common elements -- error constants, helpers -- imported by any of the above
+
+# Status
+
+The go-directory suite as a whole is undergoing heavy development and is considered purely EXPERIMENTAL. It not yet suitable for production environments.
+
+# License
+
+All packages in this suite are released under the terms of the MIT license. See each repository's LICENSE file for details.
+
+# Acknowledgements
+
+  - Jesse Coretta
+  - Valere Jeantet
+  - The maintainers of boltdb
+  - The maintainers of go-asn1-ber
+  - The maintainers of go-ldap/ldap and go-ldap/ldif
