@@ -4,7 +4,7 @@ The Go Directory project is working towards releasing an LDAP package suite writ
 
 ## Status
 
-The go-directory suite as a whole is undergoing heavy development and is considered purely EXPERIMENTAL. Breaking changes are expected during this development phase. This suite, as a whole, is not yet suitable for production environments.
+This suite as a whole is undergoing ***heavy development*** and is considered purely EXPERIMENTAL. Breaking changes are guaranteed during this development phase. As such, it is not yet suitable for production environments.
 
 ## License
 
@@ -20,7 +20,7 @@ The [go-directory](https://github.com/go-directory) suite is comprised of the fo
 
 ### go-directory/dsa
 
-The **UNRELEASED** [go-directory/dsa](https://github.com/go-directory/dsa) package implements the directory system agent (an server). It incorporates [vjeantet/ldapserver](https://github.com/vjeantet/ldapserver) and [vjeantet/goldap/message](https://github.com/vjeantet/goldap) through _vendoring_. 
+The **UNRELEASED** [go-directory/dsa](https://github.com/go-directory/dsa) package implements the directory system agent (an LDAP server). It incorporates [vjeantet/ldapserver](https://github.com/vjeantet/ldapserver) and [vjeantet/goldap/message](https://github.com/vjeantet/goldap) through _vendoring_. 
 
 This package, though bulky in its own right, mainly serves as a conductor for all of the other packages (below) that are imported.
 
@@ -106,7 +106,7 @@ This package includes an ASN.1 DER codec.
 
   - Jesse Coretta (project lead, maintainer)
 
-# Acknowledgements
+## Acknowledgements
 
   - Valere Jeantet (maintainer of [ldapserver](https://github.com/vjeantet/ldapserver) and [goldap](https://github.com/vjeantet/goldap))
   - The maintainers of [boltdb/bolt](https://github.com/boltdb/bolt)
