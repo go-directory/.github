@@ -12,7 +12,11 @@ The [go-directory](https://github.com/go-directory) suite is comprised of the fo
     - Fork of [go-ldap/ldif](https://github.com/go-ldap/ldif)
   - [go-directory/config](https://github.com/go-directory/config); `cn=config` configuration abstraction for use by [go-directory/dsa](https://github.com/go-directory/dsa)
   - [go-directory/schema](https://github.com/go-directory/schema); complete schema definition store, parser
-  - [go-directory/syntax](https://github.com/go-directory/syntax); syntax checking and matching rule assertions
+  - [go-directory/syntax](https://github.com/go-directory/syntax); near-complete implementation of [RFC 4517](https://www.rfc-editor.org/info/rfc4517/), includes subpackage directories for more specialized standards:
+    - [go-directory/syntax/aci](https://github.com/go-directory/syntax/tree/main/aci); complete Netscape/Sun ACIv3 implementation
+    - [go-directory/syntax/filter](https://github.com/go-directory/syntax/tree/main/filter); complete interface-based [RFC 4515](https://www.rfc-editor.org/info/rfc4515/) implementation
+    - [go-directory/syntax/subspec](https://github.com/go-directory/syntax/tree/main/subspec); complete interface-based [RFC 3672](https://www.rfc-editor.org/info/rfc3672/) subtreeSpecification implementation. Includes ASN.1 codec.
+    - [go-directory/syntax/x509](https://github.com/go-directory/syntax/tree/main/x509); near-complete [RFC 4523](https://www.rfc-editor.org/info/rfc4523/) implementation
   - [go-directory/common](https://github.com/go-directory/common); common elements -- error constants, helpers -- imported by any of the above
 
 # Status
