@@ -4,7 +4,7 @@ The Go Directory project is working towards releasing an LDAP package suite writ
 
 ## Status
 
-This suite as a whole is undergoing ***heavy development*** and is considered purely EXPERIMENTAL. Breaking changes are guaranteed during this development phase. As such, it is not yet suitable for production environments.
+This suite as a whole is undergoing ***heavy development*** and is considered purely EXPERIMENTAL. Breaking changes are guaranteed during this development phase. As such, it is not yet suitable for use in any production environment.
 
 ## License
 
@@ -22,7 +22,7 @@ The [go-directory](https://github.com/go-directory) suite is comprised of the fo
 
 The **UNRELEASED** [go-directory/dsa](https://github.com/go-directory/dsa) package implements the directory system agent (an LDAP server). It incorporates [vjeantet/ldapserver](https://github.com/vjeantet/ldapserver) and [vjeantet/goldap/message](https://github.com/vjeantet/goldap) through _vendoring_. 
 
-This package, though bulky in its own right, mainly serves as a conductor for all of the other packages (below) that are imported.
+This package, though bulky in its own right, mainly serves as the importer and caller of all of the other packages (below).
 
 ### go-directory/common
 
@@ -34,37 +34,29 @@ Over time, this package will grow in attempt to address [this issue](https://git
 
 The [go-directory/config](https://github.com/go-directory/config) package implements a `cn=config` abstraction layer for use by [go-directory/dsa](https://github.com/go-directory/dsa). It serves as the persistent configuration element of the DSA, controlling runtime behavior and many other facets.
 
+### go-directory/encoding
+
+The [go-directory/encoding](https://github.com/go-directory/encoding) package contains various package subdirectories, each offering encoding/decoding features for various encoding standards such as ASN.1, VLQ and Percent.
+
 ### go-directory/dib
 
 The [go-directory/dib](https://github.com/go-directory/dib) package implements the basis of the X.500 directory information base, from which directory information trees can emerge. The package supports both ephemeral (memory-based) and persistent (bolt DB file) storage backend options through simple transparent interfaces.
 
-[boltdb/bolt](https://github.com/boltdb/bolt) is an integral imported component of this package.
+[boltdb/bolt](https://github.com/boltdb/bolt) is an integral imported component of this package. Though currently imported by the [Go Directory Project](https://github.com/go-directory), it may be vendored-in at some point in the near future for reasons of safety and continuity, given [boltdb/bolt](https://github.com/boltdb/bolt) is no longer maintained as of March 2019.
 
-### go-directory/dua
+### go-directory/protocol
 
-The [go-directory/dua](https://github.com//go-directory/dua) package implements the directory user agent (client). It is a (renamed) fork of [go-ldap/ldap](https://github.com/go-ldap/ldap).
-
-WARNING: Users should NOT import this package for their own client purposes. This package exists solely as a component of the [go-directory/dsa](https://github.com/go-directory/dsa) package for communicating with other DSAs for the purposes of chaining, replication and other distribution-related functions. 
-
-Users should continue using the original [go-ldap/ldap](https://github.com/go-ldap/ldap) package.
-
-This package is slated to be radically modified in service to [this issue](https://github.com/go-directory/.github/discussions/1).
+The [go-directory/protocol](https://github.com/go-directory/protocol) package is a near-complete implementation of [RFC 4511](https://www.rfc-editor.org/info/rfc4511/), and offers the fundamental types and methods needed for LDAP wire protocol activity. This package currently includes "request", "response" and "control" package subdirectories.
 
 ### go-directory/ldif
 
-The [go-directory/ldif](https://github.com//go-directory/dua) package implements the LDAP Data Interchange Format. It is a fork of [go-ldap/ldif](https://github.com/go-ldap/ldif).
-
-WARNING: Users should NOT import this package for their own purposes. This package exists solely as a component of the [go-directory/dsa](https://github.com/go-directory/dsa) package for backend purposes.
-
-Users should continue using the original [go-ldap/ldif](https://github.com/go-ldap/ldif) package.
+The [go-directory/util](https://github.com/go-directory/util) package provides miscellaneous utility packages. This package will grow over time.
 
 ### go-directory/schema
 
-The [go-directory/schema](https://github.com/go-directory/schema) package implements a complete [RFC 4512](https://www.rfc-editor.org/info/rfc4512/)-compliant schema definition store and parser. The package supports the concepts of _views_, in which an authoritative `*schema.SubschemaSubentry` instance can "seed" specific separate and independents `subschemaSubentry` contexts.
+The [go-directory/schema](https://github.com/go-directory/schema) package implements a complete [RFC 4512](https://www.rfc-editor.org/info/rfc4512/)-compliant schema performance index map and parser. It is designed to exhibited the best performance possible.
 
-The package contains the `ldapSyntaxes`, `matchingRules`, `attributeTypes`, `matchingRuleUses`, `objectClasses`, `dITContentRules`, `nameForms` and `dITStructureRules` syntax definitions not included in the [go-directory/syntax](https://github.com/go-directory/syntax) package merely for reasons of logical separation.
-
-The package also includes a package subdirectory at [go-directory/schema/indexer](https://github.com/go-directory/schema/tree/main/indexer). This package serves to "digest" an instance of `*schema.SubschemaSubentry` into a matrix of fast-lookup tables (maps).
+The package contains the `ldapSyntaxes`, `matchingRules`, `attributeTypes`, `matchingRuleUses`, `objectClasses`, `dITContentRules`, `nameForms` and `dITStructureRules` syntax definitions not included in the [go-directory/syntax](https://github.com/go-directory/syntax) package merely for reasons of logical separation and avoidance of cyclical dependencies.
 
 ### go-directory/syntax
 
@@ -72,43 +64,24 @@ The [go-directory/syntax](https://github.com/go-directory/syntax) package is a n
 
 The main purpose of this package is to confirm a particular value complies with the associated syntax and, where applicable, to conduct EQUALITY, SUBSTR and ORDERING matching operations between so-called "real" values and an assertion value delivered by way of an LDAP search filter.
 
-See the following subsections for more specialized syntaxes implemented from other standards or pseudo standards.
-
 #### go-directory/syntax/aci
 
-The [go-directory/syntax/aci](https://github.com/go-directory/syntax/tree/main/aci) package is a complete Netscape/Sun ACIv3 implementation. It incorporates the _ENTIRE_ specification into simple interrogative types produced by a reliable parser.
+The [go-directory/syntax/aci](https://github.com/go-directory/syntax/tree/main/aci) package is a complete Netscape/Sun ACIv3 implementation. It incorporates the _ENTIRE_ specification into simple interrogative types produced by a reliable parser. It is released as a _package subdirectory_ merely due to its massive size and complexity.
 
-Though not a true standard, the ACIv3 specification has been adopted by nearly all directory server products on the market today. It is hardened and time tested.
+Though not a true standard, the ACIv3 specification has been adopted by nearly all directory server products on the market today. It is hardened, time-tested and battle-tested.
 
-This package does NOT include an ACDF (or, Access Control Decision Function). This functionality is intended to reside within the [go-directory/dsa](https://github.com/go-directory/dsa) package itself, as it will involve both an analysis of one or more rules and correlative queries to the storage backend.
-
-#### go-directory/syntax/filter
-
-The [go-directory/syntax/filter](https://github.com/go-directory/syntax/tree/main/filter) package is a complete interface-based [RFC 4515](https://www.rfc-editor.org/info/rfc4515/) implementation. It offers a fast, reliable parser which produces easly-traversable types for assertion processing.
-
-An ASN.1 BER codec is not yet implemented in this package, but this effort is coming.
-
-#### go-directory/syntax/subspec
-
-The [go-directory/syntax/subspec](https://github.com/go-directory/syntax/tree/main/subspec) package is a complete interface-based [RFC 3672](https://www.rfc-editor.org/info/rfc3672/) `subtreeSpecification` implementation.
-
-The package offers a fast, reliable parser which produces easily-traversable types for subtree processing. In many respects, it mirrors the design and functionality of [go-directory/syntax/filter](https://github.com/go-directory/syntax/tree/main/filter). This package will be pivotal in terms of subentries and collective attribute functionality implementation planned for later this year.
-
-This package includes an ASN.1 DER codec.
-
-#### go-directory/syntax/x509
-
-The [go-directory/syntax/x509](https://github.com/go-directory/syntax/tree/main/x509) package is a near-complete [RFC 4523](https://www.rfc-editor.org/info/rfc4523/) implementation, offering syntaxes and matching rules for X.509 elements defined in the standard.
-
-This package includes an ASN.1 DER codec.
+This package does NOT include an ACDF (an **A**ccess **C**ontrol **D**ecision _(making)_ **F**unction). This functionality is intended to reside within the [go-directory/dsa](https://github.com/go-directory/dsa) package itself, as it will involve both an analysis of one or more rules ***and*** correlative queries to the storage backend.
 
 ## Members
 
-  - Jesse Coretta (project lead, maintainer)
+  - Jesse Coretta (SME, project lead, maintainer)
 
 ## Acknowledgements
 
+This project would not be where it is today without the quality contributions by these individuals/teams:
+
   - Valere Jeantet (maintainer of [ldapserver](https://github.com/vjeantet/ldapserver) and [goldap](https://github.com/vjeantet/goldap))
   - The maintainers of [boltdb/bolt](https://github.com/boltdb/bolt)
-  - The maintainers of [go-asn1-ber](https://github.com/go-asn1-ber/asn1-ber)
   - The maintainers of [go-ldap/ldap](https://github.com/go-ldap/ldap) and [go-ldap/ldif](https://github.com/go-ldap/ldif)
+
+Thank you. :)
