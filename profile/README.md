@@ -48,7 +48,7 @@ The [go-directory/dib](https://github.com/go-directory/dib) package implements t
 
 The [go-directory/protocol](https://github.com/go-directory/protocol) package is a near-complete implementation of [RFC 4511](https://www.rfc-editor.org/info/rfc4511/), and offers the fundamental types and methods needed for LDAP wire protocol activity. This package currently includes "request", "response" and "control" package subdirectories.
 
-### go-directory/ldif
+### go-directory/util
 
 The [go-directory/util](https://github.com/go-directory/util) package provides miscellaneous utility packages. This package will grow over time.
 
