@@ -20,7 +20,7 @@ The [go-directory](https://github.com/go-directory) suite is comprised of the fo
 
 ### go-directory/dsa
 
-The **UNRELEASED** [go-directory/dsa](https://github.com/go-directory/dsa) package implements the directory system agent (an LDAP server). It incorporates [vjeantet/ldapserver](https://github.com/vjeantet/ldapserver) and [vjeantet/goldap/message](https://github.com/vjeantet/goldap) through _vendoring_. 
+The **UNRELEASED** [go-directory/dsa](https://github.com/go-directory/dsa) package implements the directory system agent (an LDAP server). It incorporates [vjeantet/ldapserver](https://github.com/vjeantet/ldapserver) as `dsa/svc` through _vendoring_. 
 
 This package, though bulky in its own right, mainly serves as the importer and caller of all of the other packages (below).
 
@@ -28,7 +28,7 @@ This package, though bulky in its own right, mainly serves as the importer and c
 
 The [go-directory/common](https://github.com/go-directory/common) package provides fundamental "common elements", such as error constants, helpers. It is considered a LOW LEVEL package, in that it does not import any other suite package itself, while all other suite packages import it.
 
-Over time, this package will grow in attempt to address [this issue](https://github.com/go-directory/.github/discussions/1).
+Over time, this package will grow in attempt to address [this (mostly resolved) issue](https://github.com/go-directory/.github/discussions/1).
 
 ### go-directory/config
 
@@ -46,7 +46,7 @@ The [go-directory/dib](https://github.com/go-directory/dib) package implements t
 
 ### go-directory/protocol
 
-The [go-directory/protocol](https://github.com/go-directory/protocol) package is a near-complete implementation of [RFC 4511](https://www.rfc-editor.org/info/rfc4511/), and offers the fundamental types and methods needed for LDAP wire protocol activity. This package currently includes "request", "response" and "control" package subdirectories.
+The [go-directory/protocol](https://github.com/go-directory/protocol) package is a near-complete implementation of [RFC 4511](https://www.rfc-editor.org/info/rfc4511/), and offers the fundamental types and methods needed for LDAP wire protocol activity. This package currently includes "request", "response" and "controls" package subdirectories.
 
 ### go-directory/util
 
@@ -62,13 +62,13 @@ The package contains the `ldapSyntaxes`, `matchingRules`, `attributeTypes`, `mat
 
 The [go-directory/syntax](https://github.com/go-directory/syntax) package is a near-complete implementation of [RFC 4517](https://www.rfc-editor.org/info/rfc4517/). It contains myriad types and methods for most of the constructs defined in the aforementioned standard.
 
-The main purpose of this package is to confirm a particular value complies with the associated syntax and, where applicable, to conduct EQUALITY, SUBSTR and ORDERING matching operations between so-called "real" values and an assertion value delivered by way of an LDAP search filter.
+The main purpose of this package is to confirm a particular value complies with the associated syntax and, where applicable, to conduct EQUALITY, SUBSTR and ORDERING matching operations between so-called "real" values and an assertion value delivered by way of an LDAP search filter or CompareRequest.
 
 #### go-directory/syntax/aci
 
 The [go-directory/syntax/aci](https://github.com/go-directory/syntax/tree/main/aci) package is a complete Netscape/Sun ACIv3 implementation. It incorporates the _ENTIRE_ specification into simple interrogative types produced by a reliable parser. It is released as a _package subdirectory_ merely due to its massive size and complexity.
 
-Though not a true standard, the ACIv3 specification has been adopted by nearly all directory server products on the market today. It is hardened, time-tested and battle-tested.
+Though not a true standard, the ACIv3 specification has been adopted by nearly all directory server products on the market today. It is hardened, time-tested and battle-tested.  It was the ideal pseudo-standard for this project to implement.
 
 This package does NOT include an ACDF (an **A**ccess **C**ontrol **D**ecision _(making)_ **F**unction). This functionality is intended to reside within the [go-directory/dsa](https://github.com/go-directory/dsa) package itself, as it will involve both an analysis of one or more rules ***and*** correlative queries to the storage backend.
 
